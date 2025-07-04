@@ -1,0 +1,102 @@
+import React from 'react';
+import styled from 'styled-components';
+import { MediumButton } from '../../global/components/Buttons';
+import color from '../../global/styles/color';
+import categories from '../global/categories';
+import fontsize from '../../global/styles/fontsize';
+import loadingImg from '../../global/images/loading.gif';
+const {success, light} = color;
+
+const {medium} = fontsize;
+
+
+
+
+const Wrapper = styled.div`
+    .button-group {
+        display: flex;
+
+
+        button {
+            flex-grow:  1;
+            width: 0;
+        }
+
+        button +button {
+        
+            margin-left: 5px;
+        }
+    }
+
+
+
+`;
+
+const Result = ({ onClick, onRefresh, category, eq, predictions, loading }) => {
+  return (
+    <Wrapper>
+      <div className="button-group">
+        {loading ? (
+          <img src={loadingImg} alt="loading" className="loading" />
+        ) : (
+          <MediumButton type="button" onClick={onClick}>
+            제출
+          </MediumButton>
+        )}
+        <MediumButton type="button" onClick={onRefresh}>
+          한번더
+        </MediumButton>
+      </div>
+      {predictions && predictions.length > 0 && (
+        <StyledPredictionBox
+          items={predictions}
+          eq={eq}
+          category={category[1]}
+        />
+      )}
+    </Wrapper>
+  );
+};
+
+const PredictionBox = ({ items, eq, category }) => {
+  return (
+    <div className='{classname}'>
+      <div className="tit">
+        {eq
+          ? category + "(을)를 잘 그렸네요!"
+          : "잘 모르겠어요. 혹시 그린 것이 아래 있나요?"}
+      </div>
+      {!eq && (
+        <div>
+          {items.map((item) => (
+            <span key={item[0] + "_" + item[1]}>
+                {categories[item[0]]}({Math.round(item[1])})
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+const styledPredictionBox = styled(PredictionBox)`
+  background: ${success};
+  font-size: ${medium};
+  color: ${light};
+  padding: 10px 20px;
+  text-aling: center;
+  margin-bottom: 5px;
+  border-radius: 3px;
+
+  .tit {
+    margin-bottom: 5px;
+    }
+
+    .prediction {
+        span +span
+    
+
+    }
+`;
+
+export default React.memo(Result);
