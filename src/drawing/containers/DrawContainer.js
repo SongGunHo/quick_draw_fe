@@ -1,15 +1,15 @@
-import React, { useState, useCallback } from 'react';
-import Canvas from '../components/Canvas';
-import Direction from '../components/Direction';
-import Result from '../components/Result';
-import { getRandomCategory } from '../global/categories';
+import React, { useState, useCallback } from "react";
+import Canvas from "../components/Canvas";
+import Direction from "../components/Direction";
+import Result from "../components/Result";
+import { getRandomCategory } from "../global/categories";
 
 const DrawContainer = () => {
   const [category, setCategory] = useState(() => getRandomCategory());
   const [canvas, setCanvas] = useState();
   const [eq, setEq] = useState(false); // 정답 여부
-  const [predictions, setPredictions] = useState([]);
-  const [loading, setLoading ] = useState(false);
+  const [predictions, setPredictions] = useState(); // 예측내용
+  const [loading, setLoading] = useState(false); // 로딩 여부
 
   // 캔버스에 그리기 처리
   const drawCanvas = useCallback((el) => {
@@ -56,6 +56,7 @@ const DrawContainer = () => {
    */
   const onConfirmDrawing = useCallback(() => {
     const apiHost = process.env.REACT_APP_API_URL;
+
     setLoading(false);
 
     canvas.toBlob(
@@ -67,7 +68,6 @@ const DrawContainer = () => {
         fetch(`${apiHost}/quickdraw/predict`, {
           method: "POST",
           body: formData,
-          signal: AbortSignal.timeout(1000 * 60 * 3),
         })
           .then((res) => res.json())
           .then((items) => {
@@ -80,15 +80,17 @@ const DrawContainer = () => {
       1,
     );
   }, [canvas, category]);
+
   const onRefresh = useCallback(() => {
-    if(!canvas) return;
+    if (!canvas) return;
+
     const ctx = canvas.getContext("2d");
-    ctx.fillStyle ="#fff";
-    ctx.fillRect(0,0,498,498);
-    setCategory(getRandomCategory);
+    ctx.fillStyle = "#fff";
+    ctx.fillRect(0, 0, 498, 498);
+
+    setCategory(getRandomCategory());
     setEq(false);
-    setPredictions
-    
+    setPredictions(undefined);
   }, [canvas]);
 
   return (
