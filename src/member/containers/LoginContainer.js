@@ -1,9 +1,17 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useContext } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import CommonContext from '../../global/contexts/CommonContext';
 import LoginForm from '../components/LoginForm';
 
 const LoginContainer = () => {
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
+  const {
+    actions : {setIsLogin, setLoggedMember},
+    = useContext(CommonContext) 
+  }
+
+  const 
 
   const onChange = useCallback((e) => {
     setForm((form) => ({ ...form, [e.target.name]: e.target.value }));
@@ -41,9 +49,13 @@ const LoginContainer = () => {
       };
       setIsLogin(true);
       setLoggedMember(member);
+
+      const redirectUrl = searchPaarams.get("redirectUrl") ?? '/';
+      navigator(redirectUrl, )
     },
-    [form,setIsLogin, setLoggedMember],
-  );
+    [form,setIsLogin, setLoggedMember. searchPaarams, navigator],
+  ); 
+  // 로그인 완료시 이동 
 
   return (
     <LoginForm
