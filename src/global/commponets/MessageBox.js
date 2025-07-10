@@ -1,7 +1,7 @@
 import React from "react";
 
 const MessageBox =({items}) =>{
-    console.log("items", items);
+    items = Array.isArray(items) ? items:[items];
     return (
         <>
         </>
