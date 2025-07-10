@@ -43,7 +43,7 @@ const LoginForm = ({ form, onChange, onSubmit, errors }) => {
         value={form.email ?? ''}
         onChange={onChange}
       />
-      <MessageBox items={errors.email}/>
+      <MessageBox>{errors.em}</MessageBox>
       <input
         type="password"
         name="password"

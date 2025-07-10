@@ -1,6 +1,7 @@
 import React from "react";
 
-const MessageBox =({items}) =>{
+const MessageBox =({items, children}) =>{
+    if(children) items = children;
     items = Array.isArray(items) ? items:[items];
     return (
         <>
