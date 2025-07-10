@@ -8,10 +8,11 @@ const LoginContainer = () => {
   const [errors, setErrors] = useState({});
   const {
     actions : {setIsLogin, setLoggedMember},
-    = useContext(CommonContext) 
-  }
+  }= useContext(CommonContext);
+  const [searchPaarams] = useSearchParams();
+  const [navigator]= useState({});
 
-  const 
+
 
   const onChange = useCallback((e) => {
     setForm((form) => ({ ...form, [e.target.name]: e.target.value }));
@@ -49,13 +50,15 @@ const LoginContainer = () => {
       };
       setIsLogin(true);
       setLoggedMember(member);
-
+      // 양식 초기화 
+      setForm({});
+      // 로그인 완료시 이동 
       const redirectUrl = searchPaarams.get("redirectUrl") ?? '/';
-      navigator(redirectUrl, )
+      //navigator(redirectUrl, {replace: true})
+
     },
     [form,setIsLogin, setLoggedMember. searchPaarams, navigator],
   ); 
-  // 로그인 완료시 이동 
 
   return (
     <LoginForm

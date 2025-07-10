@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {usrContext} from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import classNames from 'classnames';
 import { MdHome, MdDraw, MdLogin } from 'react-icons/md';
+import useUseInfo from '../../drawing/global/hooks/useUseInfo';
 import color from '../styles/color';
 import fontsize from '../styles/fontsize';
 
@@ -49,6 +50,7 @@ const StyledHeader = styled.header`
 `;
 
 const Header = () => {
+  const [isLogin, loggedMemeber] = useUseInfo();
   return (
     <StyledHeader className="layout-width">
       <div className="left">
@@ -65,13 +67,22 @@ const Header = () => {
         </NavLink>
       </div>
       <div className="right">
-        <NavLink
-          to="/member/login"
-          className={({ isActive }) => classNames({ on: isActive })}
-        >
-          <MdLogin />
-          <span>로그인</span>
-        </NavLink>
+        {isLogin ? (
+          <>
+          {loggedMemeber.name}({loggedMemeber.email})님
+            <NavLink to="logout">
+              <span>로그아웃</span>
+            </NavLink>
+          </>
+        ) : (
+          <NavLink
+            to="/member/login"
+            className={({ isActive }) => classNames({ on: isActive })}
+          >
+            <MdLogin />
+            <span>로그인</span>
+          </NavLink>
+        )}
       </div>
     </StyledHeader>
   );
