@@ -1,10 +1,12 @@
-import React from "react";
+import React ,{useState, useCallback, useContext} from "react";
 import styled, {css} from "styled-components";
 import color from "../styles/color";
 import fontsize from "../styles/fontsize";
+import CommonContext from "../contexts/CommonContext";
 
 const {primary} = color;
 const {normal} = fontsize;
+const {actions: {setIsLogin, setLoggdMemeber}} = useState;
 
 const StyledItem = styled.div`
   box-shadow: 2px 2px 5px ${primary};

@@ -34,8 +34,15 @@ const LoginContainer = () => {
       }
 
       // 로그인 처리..
+      // 아랭 데이터는 서버에서 전송된 인증된 회원 정보 가정 한것 
+      const member  ={
+        email :'user01@test.org',
+        name :'사용자01',
+      };
+      setIsLogin(true);
+      setLoggedMember(member);
     },
-    [form],
+    [form,setIsLogin, setLoggedMember],
   );
 
   return (
