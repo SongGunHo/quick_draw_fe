@@ -30,6 +30,10 @@ const StyledForm = styled.form`
   button {
     margin-top: 10px;
   }
+  .message:first-of-type{
+    margin-top:5px;
+  
+  }
 `;
 
 const LoginForm = ({ form, onChange, onSubmit, errors }) => {
