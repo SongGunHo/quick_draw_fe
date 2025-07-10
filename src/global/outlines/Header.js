@@ -1,4 +1,4 @@
-import React, {usrContext} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import classNames from 'classnames';
@@ -70,6 +70,7 @@ const Header = () => {
         {isLogin ? (
           <>
           {loggedMemeber.name}({loggedMemeber.email})님
+          <a onClick={onLogout}></a>
             <NavLink to="logout">
               <span>로그아웃</span>
             </NavLink>
