@@ -1,8 +1,8 @@
-import React, { useState, useCallback } from "react";
-import Canvas from "../components/Canvas";
-import Direction from "../components/Direction";
-import Result from "../components/Result";
-import { getRandomCategory } from "../global/categories";
+import React, { useState, useCallback } from 'react';
+import Canvas from '../components/Canvas';
+import Direction from '../components/Direction';
+import Result from '../components/Result';
+import { getRandomCategory } from '../global/categories';
 
 const DrawContainer = () => {
   const [category, setCategory] = useState(() => getRandomCategory());
@@ -13,23 +13,23 @@ const DrawContainer = () => {
 
   // 캔버스에 그리기 처리
   const drawCanvas = useCallback((el) => {
-    const ctx = el.getContext("2d");
+    const ctx = el.getContext('2d');
     ctx.lineWidth = 10;
-    ctx.fillStyle = "#fff";
+    ctx.fillStyle = '#fff';
     ctx.fillRect(0, 0, 498, 498);
-    ctx.lineCap = "round";
+    ctx.lineCap = 'round';
 
     setCanvas(el);
 
     let isDraw = false; // 선을 그릴 수 없음
 
-    el.removeEventListener("mousedown", downHandler);
-    el.removeEventListener("mousemove", moveHandler);
-    el.removeEventListener("mouseup", upHandler);
+    el.removeEventListener('mousedown', downHandler);
+    el.removeEventListener('mousemove', moveHandler);
+    el.removeEventListener('mouseup', upHandler);
 
-    el.addEventListener("mousedown", downHandler);
-    el.addEventListener("mousemove", moveHandler);
-    el.addEventListener("mouseup", upHandler);
+    el.addEventListener('mousedown', downHandler);
+    el.addEventListener('mousemove', moveHandler);
+    el.addEventListener('mouseup', upHandler);
 
     function downHandler(e) {
       ctx.beginPath();
@@ -62,11 +62,11 @@ const DrawContainer = () => {
     canvas.toBlob(
       (blob) => {
         const formData = new FormData();
-        formData.append("image", blob, "canvas.jpg");
+        formData.append('image', blob, 'canvas.jpg');
 
         setLoading(true);
         fetch(`${apiHost}/quickdraw/predict`, {
-          method: "POST",
+          method: 'POST',
           body: formData,
         })
           .then((res) => res.json())
@@ -76,7 +76,7 @@ const DrawContainer = () => {
             setLoading(false);
           });
       },
-      "image/jpeg",
+      'image/jpeg',
       1,
     );
   }, [canvas, category]);
@@ -84,8 +84,8 @@ const DrawContainer = () => {
   const onRefresh = useCallback(() => {
     if (!canvas) return;
 
-    const ctx = canvas.getContext("2d");
-    ctx.fillStyle = "#fff";
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#fff';
     ctx.fillRect(0, 0, 498, 498);
 
     setCategory(getRandomCategory());

@@ -11,9 +11,10 @@ const StyledBox = styled.div`
   font-size: ${big};
   padding: 10px 20px;
   text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   box-shadow: 2px 2px 5px ${dark};
-  border-radius: 1px;
+  border-radius: 3px;
+  line-height: 1;
 `;
 
 const Direction = ({ category }) => {
