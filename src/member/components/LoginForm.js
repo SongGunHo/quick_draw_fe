@@ -30,9 +30,8 @@ const StyledForm = styled.form`
   button {
     margin-top: 10px;
   }
-  .message:first-of-type{
-    margin-top:5px;
-  
+  .message {
+    margin-top: 5px;
   }
 `;
 
@@ -47,7 +46,7 @@ const LoginForm = ({ form, onChange, onSubmit, errors }) => {
         value={form.email ?? ''}
         onChange={onChange}
       />
-      <MessageBox theme={danger}>{errors.em}</MessageBox>
+      <MessageBox theme="danger">{errors.email}</MessageBox>
       <input
         type="password"
         name="password"
@@ -55,7 +54,7 @@ const LoginForm = ({ form, onChange, onSubmit, errors }) => {
         value={form.password ?? ''}
         onChange={onChange}
       />
-      <MessageBox theme={danger}>{errors.password}</MessageBox>
+      <MessageBox theme="dange">{errors.password}</MessageBox>
       {errors?.password && <div>{errors.password}</div>}
       <MediumButton type="submit" width="100%">
         로그인
